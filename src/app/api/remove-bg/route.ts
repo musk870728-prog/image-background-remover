@@ -27,11 +27,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // 转 base64
+    // 转 base64（分块处理避免大数组栈溢出）
     const buffer = await imageFile.arrayBuffer();
-    const base64 = btoa(
-      String.fromCharCode(...new Uint8Array(buffer))
-    );
+    const bytes = new Uint8Array(buffer);
+    let binary = "";
+    const chunk = 65536; // 64KB 一块
+    for (let i = 0; i < bytes.length; i += chunk) {
+      binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+    }
+    const base64 = btoa(binary);
 
     // 调用 Remove.bg
     const apiKey = process.env.REMOVE_BG_API_KEY;
