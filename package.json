@@ -1,28 +1,26 @@
 {
   "name": "image-background-remover",
   "version": "1.0.0",
+  "private": true,
   "description": "一个轻量级的在线图片背景移除工具",
-  "main": "worker/src/index.ts",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "build": "echo 'No build step required for Workers'",
-    "type-check": "tsc --noEmit"
-  },
-  "keywords": [
-    "image",
-    "background-remover",
-    "cloudflare-workers",
-    "remove-bg"
-  ],
-  "author": "克林",
-  "license": "MIT",
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240620.0",
-    "typescript": "^5.4.5",
-    "wrangler": "^3.57.2"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "itty-router": "^4.0.20"
+    "next": "^14.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
   }
 }

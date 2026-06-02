@@ -1,108 +1,91 @@
 # Image Background Remover
 
-> 一个轻量级的在线图片背景移除工具，基于 Cloudflare Workers + Remove.bg API
-
-## 项目简介
-
-让用户通过简单的上传操作即可获得去背景后的图片，适用于电商产品图、头像制作、设计素材处理等场景。
+> 一个轻量级的在线图片背景移除工具，基于 Next.js + Tailwind CSS + Remove.bg API
 
 ## 技术栈
 
-- **前端：** HTML + Vanilla JavaScript + CSS3
-- **后端：** Cloudflare Workers + TypeScript
-- **外部 API：** Remove.bg API
-- **路由：** itty-router
+- **前端：** Next.js 14 (App Router) + React 18
+- **样式：** Tailwind CSS
+- **API 后端：** Next.js API Route
+- **外部 API：** [Remove.bg API](https://www.remove.bg/api)
+- **部署：** Cloudflare Pages / Vercel
 
 ## 快速开始
 
 ### 前置要求
 
-1. [Node.js](https://nodejs.org/) (v18+)
-2. [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
-3. [Remove.bg API Key](https://www.remove.bg/api)
+1. Node.js 18+
+2. [Remove.bg API Key](https://www.remove.bg/api)（免费版每月 50 张）
 
 ### 安装
 
 ```bash
-# 克隆项目
-git clone https://github.com/yourname/image-background-remover.git
+git clone https://github.com/musk870728-prog/image-background-remover.git
 cd image-background-remover
 
 # 安装依赖
 npm install
 
 # 配置 API Key
-npx wrangler secret put REMOVE_BG_API_KEY
-# 输入你的 Remove.bg API Key
+cp .env.local.example .env.local
+# 编辑 .env.local，填入你的 Remove.bg API Key
 ```
 
 ### 本地开发
 
 ```bash
-# 启动本地开发服务器
 npm run dev
 ```
 
-访问 http://localhost:8787 测试
+访问 http://localhost:3000
 
-### 部署到 Cloudflare
+### 部署到 Cloudflare Pages
 
-```bash
-# 登录 Cloudflare
-npx wrangler login
+1. 在 Cloudflare Dashboard 创建 Pages 项目
+2. 连接到 GitHub 仓库
+3. 构建设置：
+   - **Build command:** `npm run build`
+   - **Build output:** `.next`
+4. 在环境变量中添加 `REMOVE_BG_API_KEY`
+5. 部署！
 
-# 部署
-npm run deploy
-```
+> 注意：Next.js 在 Cloudflare Pages 上需要配合 `@cloudflare/next-on-pages` 使用，或者直接部署到 Vercel。
 
 ## 项目结构
 
 ```
 image-background-remover/
-├── public/          # 前端静态文件
-│   └── index.html   # 主页面
-├── worker/          # Cloudflare Worker 代码
-│   ├── src/
-│   │   └── index.ts # Worker 主入口
-│   └── wrangler.toml # Cloudflare 配置
-├── docs/            # 项目文档
+├── src/
+│   ├── app/
+│   │   ├── globals.css          # 全局样式 (Tailwind)
+│   │   ├── layout.tsx           # 根布局
+│   │   ├── page.tsx             # 主页
+│   │   └── api/remove-bg/
+│   │       └── route.ts         # 去背景 API
+│   └── components/
+│       ├── UploadArea.tsx       # 上传区域
+│       ├── Spinner.tsx          # 加载动画
+│       ├── ResultView.tsx       # 结果预览
+│       └── ErrorMessage.tsx     # 错误提示
+├── docs/
 │   └── DEPLOYMENT.md
-├── MVP_REQUIREMENTS.md  # MVP 需求文档
+├── MVP_REQUIREMENTS.md
 └── README.md
 ```
 
 ## 功能特性
 
-✅ 单张图片上传和处理  
-✅ 支持 JPG、PNG、WebP 格式  
+✅ 单张图片上传和处理（支持 JPG/PNG/WebP）  
 ✅ 点击或拖拽上传  
 ✅ 即时预览和下载  
-✅ 简单的错误提示  
-✅ 响应式设计（支持移动端）
+✅ 客户端文件验证（类型 + 大小）  
+✅ 友好的错误提示  
+✅ 响应式设计（桌面端 + 移动端）  
+✅ Modern UI（Tailwind CSS）
 
-## 限制说明
+## 成本
 
-- 图片大小限制：5MB
-- Remove.bg 免费版：每月 50 张
-- Cloudflare Workers 免费版：每天 100,000 请求
-
-## 待办事项
-
-- [ ] 批量处理功能
-- [ ] 图片裁剪和调整大小
-- [ ] 支持更多图片格式
-- [ ] 用户账户系统
-- [ ] 图片历史记录
-
-## 文档
-
-- [MVP 需求文档](./MVP_REQUIREMENTS.md)
-- [部署指南](./docs/DEPLOYMENT.md)
-
-## License
-
-MIT
-
-## 作者
-
-[@克林](https://github.com/yourname)
+| 服务 | 免费额度 | 超出费用 |
+|------|---------|---------|
+| Vercel / Cloudflare Pages | 标准免费额度 | 按量计费 |
+| Remove.bg | 50张/月 | $0.20/张 |
