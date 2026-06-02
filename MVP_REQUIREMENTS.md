@@ -1,9 +1,9 @@
-# Image Background Remover MVP 需求文档
+# 图片背景移除工具 - MVP 需求文档
 
-**项目名称：** 图片背景移除工具（MVP）
-**版本：** v1.0
-**创建日期：** 2026-06-02
-**负责人：** 克林
+**项目名称：** 图片背景移除工具（MVP）  
+**版本：** v1.0  
+**创建日期：** 2026-06-02  
+**负责人：** 克林  
 **文档类型：** MVP 需求规格说明书
 
 ---
@@ -174,14 +174,14 @@
 ## 7. 交付清单
 
 ### 7.1 代码交付
-- [ ] Cloudflare Worker 后端代码（TypeScript）
-- [ ] 前端 HTML/CSS/JS 代码
-- [ ] `wrangler.toml` 配置文件
-- [ ] README.md（部署和使用说明）
+- [x] Cloudflare Worker 后端代码（TypeScript）
+- [x] 前端 HTML/CSS/JS 代码
+- [x] `wrangler.toml` 配置文件
+- [x] README.md（部署和使用说明）
 
 ### 7.2 文档交付
 - [x] MVP 需求文档（本文档）
-- [ ] 部署指南
+- [x] 部署指南
 - [ ] API Key 配置指南
 
 ### 7.3 测试交付
