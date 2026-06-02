@@ -69,7 +69,7 @@ export default function UploadArea({ onFileSelect }: UploadAreaProps) {
       <p className="text-base font-medium text-gray-600 mb-1">
         {isDragging ? "松开鼠标上传" : "点击或拖拽图片到此处"}
       </p>
-      <p className="text-xs text-gray-400">支持 JPG、PNG、WebP，最大 5MB</p>
+      <p className="text-xs text-gray-400">支持 JPG、PNG、WebP，最大 4MB</p>
     </div>
   );
 }

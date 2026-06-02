@@ -1,5 +1,5 @@
 const REMOVE_BG_API = "https://api.remove.bg/v1.0/removebg";
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_SIZE = 4 * 1024 * 1024; // 4MB (Vercel limit)
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export async function POST(request: Request) {
@@ -66,13 +66,18 @@ export async function POST(request: Request) {
       console.error("Remove.bg error:", bgRes.status, errorText);
 
       const errorMap: Record<number, string> = {
+        400: "图片格式异常，请更换图片重试",
         401: "API Key 无效",
-        402: "API 额度已用完",
+        402: "免费额度已用完（每月50张）",
+        403: "API 权限不足",
         429: "请求太频繁，请稍后重试",
       };
 
       return Response.json(
-        { error: errorMap[bgRes.status] || "背景移除服务暂时不可用" },
+        {
+          error: errorMap[bgRes.status] || "背景移除服务暂时不可用",
+          detail: errorText.slice(0, 200),
+        },
         { status: 500 }
       );
     }

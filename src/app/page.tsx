@@ -7,7 +7,7 @@ import ResultView from "@/components/ResultView";
 import ErrorMessage from "@/components/ErrorMessage";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_SIZE = 4 * 1024 * 1024; // 4MB (Vercel 限制)
 
 type Status = "idle" | "uploading" | "processing" | "success" | "error";
 
@@ -34,7 +34,7 @@ export default function Home() {
 
     // 验证文件大小
     if (file.size > MAX_SIZE) {
-      setError("图片太大，请上传 5MB 以内的图片");
+      setError("图片太大，请上传 4MB 以内的图片");
       setStatus("error");
       return;
     }
